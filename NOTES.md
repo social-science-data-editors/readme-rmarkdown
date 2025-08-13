@@ -28,3 +28,5 @@ Auxiliary files used are the various libraries on the system (this does not use 
 ```
 
 The example uses a `Dockerfile`, but again, this is not critical. 
+
+You will want to adjust the `LICENSE.txt` file, as it has hard-coded dates and author names. And of course, it might not meet your needs.

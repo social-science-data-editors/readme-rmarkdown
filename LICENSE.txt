@@ -9,7 +9,7 @@ Public License
 (https://creativecommons.org/licenses/by-nc/4.0/)
 - applies to databases, images, tables, text, and any other objects
 
-COPYRIGHT 2024 Sylverie Herbert, Hautahi Kingi, Flavio Stanchi, Lars Vilhuber
+COPYRIGHT 2025 Lars Vilhuber
 
 =================================================================
 Modified BSD License
