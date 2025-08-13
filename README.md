@@ -32,7 +32,8 @@ csl: _readme/chicago-author-date.csl
 
 
 <div class="alert alert-info">
-📚 This is only an example of a code-generated README, for demonstration purposes. To turn off these instructions, set the parameter <code>tutorial</code> to <code>false</code> in the front matter.
+📚 This is only an example of a code-generated README, for demonstration purposes. To turn off these instructions, set the parameter <code>tutorial</code> to <code>false</code> in the front matter. 
+For additional installation information, see <a href="NOTES.md">NOTES.md</a>.
 </div>
 
 (based on @herbert2024)

@@ -72,7 +72,8 @@ source(file.path(programs,"config.R"), echo=FALSE)
 ```{r tutorial-notice, echo=FALSE, results='asis', eval=TRUE}
 if (rmarkdown::metadata$tutorial) {
   cat('<div class="alert alert-info">\n')
-  cat('📚 This is only an example of a code-generated README, for demonstration purposes. To turn off these instructions, set the parameter <code>tutorial</code> to <code>false</code> in the front matter.\n')
+  cat('📚 This is only an example of a code-generated README, for demonstration purposes. To turn off these instructions, set the parameter <code>tutorial</code> to <code>false</code> in the front matter. \n')
+  cat('For additional installation information, see <a href="NOTES.md">NOTES.md</a>.\n')
   cat('</div>\n')
   cat('\n')
 }
