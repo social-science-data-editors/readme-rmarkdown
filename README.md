@@ -7,7 +7,6 @@ author:
 date: "2025-08-13"
 pubdate: "2025"
 pubdoi: "10.1234/something"
-tutorial: true
 output:
   html_document: 
     keep_md: yes
@@ -26,6 +25,8 @@ bibliography:
   - text/references.bib
   - grateful-refs.bib
 csl: _readme/chicago-author-date.csl
+tutorial: true
+github: https://github.com/social-science-data-editors/readme-rmarkdown
 ---
 
 
@@ -33,7 +34,8 @@ csl: _readme/chicago-author-date.csl
 
 <div class="alert alert-info">
 📚 This is only an example of a code-generated README, for demonstration purposes. To turn off these instructions, set the parameter <code>tutorial</code> to <code>false</code> in the front matter. 
-For additional installation information, see <a href="NOTES.md">NOTES.md</a>.
+For additional installation information, see <a href="NOTES.md">NOTES.md</a>. The source code can be found at
+<a href="https://github.com/social-science-data-editors/readme-rmarkdown">https://github.com/social-science-data-editors/readme-rmarkdown</a>.
 </div>
 
 (based on @herbert2024)
