@@ -1,6 +1,6 @@
 # These libraries are only needed for the README
 
-readme.libraries <- c("markdown","readxl","knitr","tidyr","dplyr","readr")
+readme.libraries <- c("devtools","markdown","readxl","knitr","tidyr","dplyr","readr")
 
 results <- sapply(as.list(readme.libraries), pkgTest)
 

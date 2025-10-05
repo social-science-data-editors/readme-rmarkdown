@@ -7,6 +7,8 @@ author:
 date: "`r Sys.Date()`"
 pubdate: "2025"
 pubdoi: "10.1234/something"
+publoc: "Borealis"
+pubversion: "V1"
 output:
   html_document: 
     keep_md: yes
@@ -95,8 +97,6 @@ if (rmarkdown::metadata$tutorial) {
 > File prepared for **Worldwide Journal of Reproducible Economics**.
 
 
-[![DOI:10.1234/something](https://zenodo.org/badge/DOI/10.1234/something.svg)](https://doi.org/10.1234/something)
-
 # Cite as
 
 ```{r citation,echo=FALSE,results='asis',eval=TRUE}
@@ -106,10 +106,13 @@ cite_title <- rmarkdown::metadata$title
 cite_date <- rmarkdown::metadata$pubdate
 cite_doi <- rmarkdown::metadata$pubdoi
 
-cat(sprintf("> %s, %s, \"%s\", %s, https://doi.org/%s",
-            cite_authors, cite_date, cite_title, "Borealis, V1", cite_doi))
+cat(sprintf("> %s, %s, \"%s\", %s, %s, https://doi.org/%s",
+            cite_authors, cite_date, cite_title, rmarkdown::metadata$publoc, rmarkdown::metadata$pubversion, cite_doi))
 ```
 
+
+
+[![DOI:`r cite_doi`](https://zenodo.org/badge/DOI/`r cite_doi`.svg)](https://doi.org/`r cite_doi`)
 
 # Overview
 
@@ -139,7 +142,7 @@ if (rmarkdown::metadata$tutorial) {
 }
 ```
 
-All data are public, and can be redistributed. The key data [@raw-data-2019] are provided in a separate repository ([https://doi.org/10.5281/zenodo.`r zenodo.id`](https://doi.org/10.5281/zenodo.`r zenodo.id`)), but are downloaded automatically. Data pulled via APIs are provided as of the date last downloaded, with no guarantees that the code to access the API still works.
+All data are public, and can be redistributed. The key data [@raw-data-2019] are provided in a separate repository (DOI here), but are downloaded automatically. Data pulled via APIs are provided as of the date last downloaded, with no guarantees that the code to access the API still works.
 
 ## Statement about Rights
 
@@ -187,6 +190,27 @@ if (rmarkdown::metadata$tutorial) {
 
 ```{r summary_data,echo=FALSE,eval=TRUE}
 normative.file <- file.path(readmelib,"datafiles.xlsx")
+
+# parse the data directory to list all files that are actually present
+#  and compare to the normative list
+
+
+real.file <- list.files(datadir,recursive=TRUE,full.names=TRUE) %>%
+  as.data.frame()
+names(real.file) <- "Filename"
+#  Add the same columns as for the normative file
+real.file <- real.file %>%
+  mutate(`Data Source` = NA,
+         Provided = "Yes",
+         Order = NA) %>%
+         # remove the base path and replace with "."
+  mutate(Filename = str_replace(Filename,paste0("^",basedir),"."))
+
+# write it out as an Excel file for ease of editing
+write_xlsx(real.file,file.path(readmelib,"datafiles-draft.xlsx"))
+
+# The draft file can now be edited, and then saved as datafiles.xlsx.
+
 datafiles <- read_excel(normative.file) %>%
   arrange(Order,`Data Source`) %>%
 # find files present
@@ -228,6 +252,23 @@ if ( is.numeric(check.files.failure) & check.files.failure > 0 ) {
 
 ```
 
+```{r print_check_real,echo=FALSE,results='asis',eval=TRUE}
+
+
+if ( is.numeric(check.files.failure) & check.files.failure > 0 ) {
+   cat('### Files present\n')
+   cat(' \n')
+   cat('> This list is only printed out when the normative provision of the files (i.e., whether the file should be present in the public replication package) does not match the actual presence of the file.\n')
+   cat('> \n')
+   cat('> This entire section disappears when everything is in order!\n')
+   cat('> \n')
+   cat(paste0('> The normative list is maintainaed MANUALLY in ',normative.file,', and should be updated from the draft file.\n'))
+   real.file %>% 
+    select(`Data Source`,Filename,Provided,Order) %>%
+  kable()
+}
+
+```
 ```{r print_check_dups,echo=FALSE,results='asis',eval=TRUE}
 
 if ( is.numeric(check.files.duplicates.n) & check.files.duplicates.n > 0 ) {
@@ -599,7 +640,7 @@ Packages are listed here if they are loaded by the code.
 ```{r sysinfo,eval=TRUE,echo=FALSE}
 # we don't want to capture what the Rmarkdown session is running, but rather, what the computational session is running
 if (! file.exists(file.path(programs,"99_zz_info.txt"))) {
-system("cd programs && R CMD BATCH 99_zz_info.R")
+system(paste0("cd ",programs," && R CMD BATCH 99_zz_info.R"))
 }
 ```
 
